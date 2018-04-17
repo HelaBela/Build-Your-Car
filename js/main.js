@@ -1,73 +1,6 @@
 
 // step 1
 
-$('ul li').on('click', function(e){
-	e.preventDefault();
-
-	$('li.active').removeClass('active');
-
-$(this).addClass('active');
-
-//step5:
-
-//grab handlebars template
-var source = $('data-option').html();
-
-//compile source
-
-var template = Handlebars.compile(source);
-
-//create object literal
-
-var data = {feature: carOption };
-
-
-$('#options-display').html('');
-
-switch($(this).data('tab')){
-
-    case 'vehicle':
-
-    //create object literal
-
-    for(var i=0 ; i<carOption.length ; i++){
-
-var data = {feature: carOption[i] };
-
-    };
-
-    var newListItemHTML = template(data);
-
-
-//define and add data to template
-
-		$('#options-display').html(newListItemHTML);
-
-
-        break;
-    case 'color':
-        //code 
-        break;
-        case 'package':
-        //code 
-        break;
-        case 'summary':
-        //code 
-        break;
-    default:
-        break;
-};
-
-
-// //-// add the new content to the DOM
-// $('#packingList').append(newListItemHTML);
-// });
-
-
-
-});
-
-
 // step 2
 
 var carOption = [
@@ -103,8 +36,69 @@ package: {choice: 'Not Selected', price: 0}
 
 
 
+$('ul li').on('click', function(e){
+	e.preventDefault();
+
+	$('li.active').removeClass('active');
+
+$(this).addClass('active');
+
+
+$('#options-display').html('');
+
+switch($(this).data('tab')){
+
+    case 'vehicle':
+
+
+//grab handlebars template
+var source = $('#vehicle-options-template').html(); 
+//compile source
+
+var template = Handlebars.compile(source);
+
+//create object literal
+
+for( var i=0; i<carOption.length; i++){
+
+  var data = {feature: carOption[i].choice, price: carOption[i].price};
+
+  console.log(carOption[i].choice, carOption[i].price); // it displays all objects and price
+
+};
+
+    var newListItemHTML = template(data);
+
+    console.log(newListItemHTML); //displays only last object 'soul'
+
+
+//define and add data to template
+
+		$('#options-display').html(newListItemHTML);
+
+
+        break;
+    case 'color':
+        //code 
+        break;
+        case 'package':
+        //code 
+        break;
+        case 'summary':
+        //code 
+        break;
+    default:
+        break;
+};
 
 
 
+// //-// add the new content to the DOM
+// $('#packingList').append(newListItemHTML);
+// });
+
+
+
+});
 
 
