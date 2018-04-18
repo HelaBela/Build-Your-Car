@@ -27,9 +27,15 @@ var packageOptions = [
 
 var carSelection = {
 
-vahicle: {choice: 'Not Selected', price: 0},
-color: {choice: 'Not Selected', price: 0},
-package: {choice: 'Not Selected', price: 0}
+  vehicle:
+  {
+    options: {
+      choice: 'Not Selected',
+      price: 0
+    }
+  },
+  color: {choice: 'Not Selected', price: 0},
+  package: {choice: 'Not Selected', price: 0}
 
 
 }
@@ -37,6 +43,9 @@ package: {choice: 'Not Selected', price: 0}
 
 
 $('ul li').on('click', function(e){
+
+
+
 
 	   e.preventDefault();
 
@@ -50,84 +59,87 @@ $('ul li').on('click', function(e){
 
 
 
-switch($(this).data('tab')){
+  switch($(this).data('tab')){
 
-  case 'vehicle':
+    case 'vehicle':
 
-        var source = $('#vehicle-options-template').html(); 
-
-        var template = Handlebars.compile(source);
-
-            for( var i=0; i<carOption.length; i++){
-
-            var data = {feature: carOption[i].choice, price: carOption[i].price};
-
-            //console.log(carOption[i].choice, carOption[i].price); // it displays all objects and price
-
-            var newListItemHTML = template(data);
-
-              console.log(newListItemHTML); //displays all objects
-               $('#options-display').append(newListItemHTML);
-
-          };
-
-
-       break;
-
-  case 'color':
-        var source = $('#color-options-template').html(); 
-
-        var template = Handlebars.compile(source);
-
-            for( var j=0; j<colorOption.length; j++){
-
-            var data = {feature: colorOption[j].choice, price: colorOption[j].price};
-
-            //console.log(carOption[i].choice, carOption[i].price); // it displays all objects and price
-
-            var newListItemHTML = template(data);
-
-              console.log(newListItemHTML); //displays all objects
-              $('#options-display').append(newListItemHTML);
-
-          };
-
-        break;
-  case 'package':
-          var source = $('#package-options-template').html(); 
+          var source = $('#vehicle-options-template').html();
 
           var template = Handlebars.compile(source);
 
-            for( var k=0; k<packageOptions.length; k++){
+              for( var i=0; i<carOption.length; i++){
 
-            var data = {feature: packageOptions[k].choice, price: packageOptions[k].price};
+              var data = {feature: carOption[i].choice, price: carOption[i].price};
 
-            //console.log(carOption[i].choice, carOption[i].price); // it displays all objects and price
+              //console.log(carOption[i].choice, carOption[i].price); // it displays all objects and price
 
-            var newListItemHTML = template(data);
+              var newListItemHTML = template(data);
 
-              console.log(newListItemHTML); //displays all objects
+                console.log(newListItemHTML); //displays all objects
+                 $('#options-display').append(newListItemHTML);
 
-              $('#options-display').append(newListItemHTML);
-
-          };
-
-
-        //code 
-        break;
-  case 'summary':
+            };
 
 
+            $('.vehicle-option').on('click', function(e) {
+              console.log($(e.target)[0].classList[2]);
+            })
 
-        //code 
-        break;
-  default:
-        break;
+         break;
+
+    case 'color':
+          var source = $('#color-options-template').html();
+
+          var template = Handlebars.compile(source);
+
+              for( var j=0; j<colorOption.length; j++){
+
+              var data = {feature: colorOption[j].choice, price: colorOption[j].price};
+
+              //console.log(carOption[i].choice, carOption[i].price); // it displays all objects and price
+
+              var newListItemHTML = template(data);
+
+                console.log(newListItemHTML); //displays all objects
+                $('#options-display').append(newListItemHTML);
+
+            };
+
+          break;
+    case 'package':
+            var source = $('#package-options-template').html();
+
+            var template = Handlebars.compile(source);
+
+              for( var k=0; k<packageOptions.length; k++){
+
+              var data = {feature: packageOptions[k].choice, price: packageOptions[k].price};
+
+              //console.log(carOption[i].choice, carOption[i].price); // it displays all objects and price
+
+              var newListItemHTML = template(data);
+
+                console.log(newListItemHTML); //displays all objects
+
+                $('#options-display').append(newListItemHTML);
+
+            };
 
 
-};
+          //code
+          break;
+    case 'summary':
 
 
+
+          //code
+          break;
+    default:
+          break;
+  };
 });
 
 
+
+// this activates the first tab so the cars are displayed at the page load
+$('li[data-tab="vehicle"]').click();
