@@ -1,8 +1,3 @@
-
-// step 1
-
-// step 2
-
 var carOption = [
   {choice: 'cadenza', price: '35000'},
   {choice: 'forte', price: '20000'},
@@ -23,17 +18,17 @@ var packageOptions = [
   {choice:'Rear Camera and LED Positioning Light', price: '200'}
 ];
 
-//step3
 
 var carSelection = {
 
-vahicle: {choice: 'Not Selected', price: 0},
+vehicle: {choice: 'Not Selected', price: 0},
 color: {choice: 'Not Selected', price: 0},
 package: {choice: 'Not Selected', price: 0}
 
 
-}
+};
 
+$('li[data-tab="vehicle"]').click();
 
 
 $('ul li').on('click', function(e){
@@ -45,9 +40,6 @@ $('ul li').on('click', function(e){
       $(this).addClass('active');
 
       $('#options-display').html('');
-
-     // var source = $(this).html();
-
 
 
 switch($(this).data('tab')){
@@ -66,7 +58,7 @@ switch($(this).data('tab')){
 
             var newListItemHTML = template(data);
 
-              console.log(newListItemHTML); //displays all objects
+              //console.log(newListItemHTML); //displays all objects
                $('#options-display').append(newListItemHTML);
 
           };
@@ -83,11 +75,8 @@ switch($(this).data('tab')){
 
             var data = {feature: colorOption[j].choice, price: colorOption[j].price};
 
-            //console.log(carOption[i].choice, carOption[i].price); // it displays all objects and price
-
             var newListItemHTML = template(data);
 
-              console.log(newListItemHTML); //displays all objects
               $('#options-display').append(newListItemHTML);
 
           };
@@ -102,32 +91,227 @@ switch($(this).data('tab')){
 
             var data = {feature: packageOptions[k].choice, price: packageOptions[k].price};
 
-            //console.log(carOption[i].choice, carOption[i].price); // it displays all objects and price
-
             var newListItemHTML = template(data);
-
-              console.log(newListItemHTML); //displays all objects
 
               $('#options-display').append(newListItemHTML);
 
           };
 
-
-        //code 
         break;
   case 'summary':
 
+        var source = $('#summary-options-template').html();
 
+        var template = Handlebars.compile(source);
 
-        //code 
+        var data = carSelection;
+
+        var newListItemHTML = template(data);
+
+        $('#options-display').append(newListItemHTML);
+
         break;
   default:
         break;
 
-
 };
 
-
 });
+
+
+$('#options-display').on('click', 'div', function(){
+
+
+  if($(this).data('panel') === 'vehicle'){
+  var choosenCar = $(this).data('option');
+  var carPrice = $(this).data('price');
+
+    carSelection.vehicle.choice = choosenCar;
+    carSelection.vehicle.price = carPrice;
+    $('.cost-display').html(carPrice);
+
+    switch(choosenCar){
+
+          case 'cadenza':
+
+              $('img').attr('src','assets/cadenza.jpg') ;
+
+          break;
+          case 'forte':
+
+            $('img').attr('src','assets/forte.jpg') ;
+
+          break;
+          case 'optima':
+             $('img').attr('src','assets/optima.jpg') ;
+
+
+          break;
+          case 'sedona':
+
+             $('img').attr('src','assets/sedona.jpg') ;
+
+          break;
+          case 'soul':
+
+             $('img').attr('src','assets/soul.jpg') ;
+
+          break;
+          default:
+          break;
+
+    };
+
+
+
+  } else if($(this).data('panel') === 'color'){
+  var choosenColor = $(this).data('option');
+  var colorPrice = $(this).data('price');
+
+    carSelection.color.choice = choosenColor;
+    carSelection.color.price = colorPrice;
+
+    $('.cost-display').html(carSelection.vehicle.price + colorPrice);
+
+
+     switch(choosenColor){
+
+      case 'black':
+
+                 switch(carSelection.vehicle.choice){
+
+              case 'cadenza':
+
+                  $('img').attr('src','assets/cadenza-black.jpg') ;
+
+              break;
+              case 'forte':
+
+                $('img').attr('src','assets/forte-black.jpg') ;
+
+              break;
+              case 'optima':
+                 $('img').attr('src','assets/optima-black.jpg') ;
+
+
+              break;
+              case 'sedona':
+
+                 $('img').attr('src','assets/sedona-black.jpg') ;
+
+              break;
+              case 'soul':
+
+                 $('img').attr('src','assets/soul-black.jpg') ;
+
+              break;
+              default:
+              break;
+
+
+                 };
+
+      break;
+
+
+      case 'white':
+
+                 switch(carSelection.vehicle.choice){
+
+              case 'cadenza':
+
+                $('img').attr('src','assets/cadenza-white.jpg') ;
+
+            break;
+            case 'forte':
+
+              $('img').attr('src','assets/forte-white.jpg') ;
+
+            break;
+            case 'optima':
+               $('img').attr('src','assets/optima-white.jpg') ;
+
+
+            break;
+            case 'sedona':
+
+               $('img').attr('src','assets/sedona-white.jpg') ;
+
+            break;
+            case 'soul':
+
+               $('img').attr('src','assets/soul-white.jpg') ;
+
+            break;
+            default:
+            break;
+              };
+
+      break;
+
+
+      case 'silver':
+
+
+              switch(carSelection.vehicle.choice){
+
+                   case 'cadenza':
+
+                  $('img').attr('src','assets/cadenza-silver.jpg') ;
+
+              break;
+              case 'forte':
+
+                $('img').attr('src','assets/forte-silver.jpg') ;
+
+              break;
+              case 'optima':
+                 $('img').attr('src','assets/optima-silver.jpg') ;
+
+
+              break;
+              case 'sedona':
+
+                 $('img').attr('src','assets/sedona-silver.jpg') ;
+
+              break;
+              case 'soul':
+
+                 $('img').attr('src','assets/soul-silver.jpg') ;
+
+              break;
+              default:
+              break;
+              };
+
+      break;
+     
+      default:
+      break;
+
+    };
+
+
+  } else if($(this).data('panel') === 'package') {
+  var choosenPackage = $(this).data('option');
+  var packagePrice = $(this).data('price');
+
+    carSelection.package.choice = choosenPackage;
+    carSelection.package.price = packagePrice;
+
+    $('.cost-display').html(carSelection.vehicle.price + carSelection.color.price + xpackagePrice);
+
+  };
+
+        });
+
+
+
+
+
+
+
+
+
 
 
